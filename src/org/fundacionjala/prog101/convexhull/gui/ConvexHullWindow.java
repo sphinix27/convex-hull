@@ -28,21 +28,6 @@ public class ConvexHullWindow extends JFrame {
         add(panel);
 
         //3. Add event listeners
-        /*panel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                System.out.println(String.format("click at: %d, %d", e.getX(), e.getY()));
-                int x = e.getXOnScreen();
-                int y = e.getYOnScreen();
-                Graphics g = getGraphics();
-                g.setColor(new Color(213, 237, 30));
-                g.drawOval(x, y, 1, 1);
-                g.drawLine(x, y, x, y);
-                g.drawString("(" + x + "," + y + ")", x, y);
-            }
-        });*/
-        panel.addMouseListener(new ConvexHullPanel.ConvexHullMouseListener((ConvexHullPanel) panel));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
