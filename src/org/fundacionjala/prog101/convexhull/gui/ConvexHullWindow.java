@@ -42,7 +42,7 @@ public class ConvexHullWindow extends JFrame {
                 g.drawString("(" + x + "," + y + ")", x, y);
             }
         });*/
-        panel.addMouseListener(new ConvexHullPanel.ConvexHullMouseListener());
+        panel.addMouseListener(new ConvexHullPanel.ConvexHullMouseListener((ConvexHullPanel) panel));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 

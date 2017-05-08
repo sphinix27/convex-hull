@@ -26,11 +26,22 @@ public class ConvexHullPanel extends javax.swing.JPanel {
     }
 
     public static class ConvexHullMouseListener extends MouseAdapter {
+
+        private ConvexHullPanel panel;
+
+        public ConvexHullMouseListener(ConvexHullPanel panel)
+        {
+            this.panel = panel;
+        }
+
         @Override
         public void mouseClicked(MouseEvent e) {
             super.mouseClicked(e);
             System.out.println(String.format("click at: %d, %d", e.getX(), e.getY()));
             System.out.println("Windows size: " + e.getComponent().getSize().toString());
+            int relativeX = e.getX() - panel.getWidth()/2;
+            int relativeY = panel.getHeight()/2 - e.getY();
+            System.out.println("Relative point: " + relativeX + ", " + relativeY);
         }
     }
 }
