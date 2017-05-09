@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
@@ -21,10 +22,13 @@ public class ConvexHullPanel extends javax.swing.JPanel {
 
     private List<DrawablePoint> drawablePoints;
 
+    private Collection<DrawableLine> drawableLines;
+
     public ConvexHullPanel()
     {
         pointSet = new PointSet();
         drawablePoints = new ArrayList<>();
+        drawableLines = new HashSet<>();
         setBackground(new Color(73, 93, 119));
 
         addMouseListener(new MouseAdapter() {
@@ -48,6 +52,13 @@ public class ConvexHullPanel extends javax.swing.JPanel {
         drawablePoint.setContainer(this);
         drawablePoints.add(drawablePoint);
 
+        for(Line line: pointSet.searchSpace())
+        {
+            DrawableLine drawableLine = new DrawableLine(line.getStart(), line.getEnd());
+            drawableLine.setContainer(this);
+            drawableLines.add(drawableLine);
+        }
+
         repaint();
     }
 
@@ -61,9 +72,9 @@ public class ConvexHullPanel extends javax.swing.JPanel {
     }
 
     private void drawLines(Graphics g) {
-        for (Line line: pointSet.searchSpace())
+        for (DrawableLine line: drawableLines)
         {
-            g.drawLine(line.getStart().x + getCenter().getX(), getCenter().getY() - line.getStart().y, line.getEnd().x + getCenter().getX(), getCenter().getY() - line.getEnd().y);
+            line.draw(g);
         }
     }
 

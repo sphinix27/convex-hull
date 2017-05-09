@@ -7,7 +7,7 @@ import java.awt.*;
 /**
  * Created by AbelBarrientos on 5/9/2017.
  */
-public class DrawablePoint extends Point{
+public class DrawablePoint{
     private final Point point;
     private ConvexHullPanel container;
 
