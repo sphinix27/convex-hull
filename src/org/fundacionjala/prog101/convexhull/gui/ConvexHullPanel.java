@@ -17,7 +17,7 @@ public class ConvexHullPanel extends javax.swing.JPanel {
 
     private PointSet pointSet;
 
-    private List<Point> drawablePoints;
+    private List<DrawablePoint> drawablePoints;
 
     public ConvexHullPanel()
     {
@@ -25,6 +25,7 @@ public class ConvexHullPanel extends javax.swing.JPanel {
         drawablePoints = new ArrayList<>();
         setBackground(new Color(73, 93, 119));
 
+        final ConvexHullPanel container = this;
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -33,32 +34,43 @@ public class ConvexHullPanel extends javax.swing.JPanel {
                 int relativeX = e.getX() - getWidth()/2;
                 int relativeY = getHeight()/2 - e.getY();
 
-                addPoint(new Point(relativeX, relativeY));
-
-                drawablePoints.add(new Point(e.getX(), e.getY()));
-                repaint();
+                addPointAtCoordinates(relativeX, relativeY);
             }
         });
+    }
+
+    private void addPointAtCoordinates(int relativeX, int relativeY) {
+        Point point = new Point(relativeX, relativeY);
+        pointSet.add(point);
+
+        DrawablePoint drawablePoint = new DrawablePoint(point);
+        drawablePoint.setContainer(this);
+        drawablePoints.add(drawablePoint);
+        repaint();
     }
 
     @Override
     public void paint(Graphics g)
     {
         super.paint(g);
+        drawAxis(g);
+        drawPoints(g);
+    }
 
-        // draw axis
-        g.setColor(new Color(213, 237, 30));
-        g.drawLine(getWidth()/2, 0, getWidth()/2,getHeight());
-        g.drawLine(0, getHeight()/2, getWidth(),getHeight()/2);
-
-        // draw points
-        for(Point point: drawablePoints)
+    private void drawPoints(Graphics g) {
+        for(DrawablePoint point: drawablePoints)
         {
-            g.drawOval(point.getX(), point.getY(), 3, 3);
+            point.draw(g);
         }
     }
 
-    private void addPoint(Point point) {
-        pointSet.add(point);
+    private void drawAxis(Graphics g) {
+        g.setColor(new Color(213, 237, 30));
+        g.drawLine(getWidth()/2, 0, getWidth()/2,getHeight());
+        g.drawLine(0, getHeight()/2, getWidth(),getHeight()/2);
+    }
+
+    public Point getCenter() {
+        return new Point(getWidth()/2, getHeight()/2);
     }
 }
