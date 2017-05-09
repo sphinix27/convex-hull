@@ -25,21 +25,20 @@ public class ConvexHullPanel extends javax.swing.JPanel {
         drawablePoints = new ArrayList<>();
         setBackground(new Color(73, 93, 119));
 
-        final ConvexHullPanel container = this;
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
 
-                int relativeX = e.getX() - getWidth()/2;
-                int relativeY = getHeight()/2 - e.getY();
-
-                addPointAtCoordinates(relativeX, relativeY);
+                addPointAtEventCoordinates(e);
             }
         });
     }
 
-    private void addPointAtCoordinates(int relativeX, int relativeY) {
+    private void addPointAtEventCoordinates(MouseEvent e) {
+        int relativeX = e.getX() - getWidth()/2;
+        int relativeY = getHeight()/2 - e.getY();
+
         Point point = new Point(relativeX, relativeY);
         pointSet.add(point);
 
