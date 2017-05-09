@@ -1,5 +1,6 @@
 package org.fundacionjala.prog101.convexhull.gui;
 
+import org.fundacionjala.prog101.convexhull.Line;
 import org.fundacionjala.prog101.convexhull.Point;
 import org.fundacionjala.prog101.convexhull.PointSet;
 
@@ -8,6 +9,7 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -45,6 +47,7 @@ public class ConvexHullPanel extends javax.swing.JPanel {
         DrawablePoint drawablePoint = new DrawablePoint(point);
         drawablePoint.setContainer(this);
         drawablePoints.add(drawablePoint);
+
         repaint();
     }
 
@@ -54,6 +57,14 @@ public class ConvexHullPanel extends javax.swing.JPanel {
         super.paint(g);
         drawAxis(g);
         drawPoints(g);
+        drawLines(g);
+    }
+
+    private void drawLines(Graphics g) {
+        for (Line line: pointSet.searchSpace())
+        {
+            g.drawLine(line.getStart().x + getCenter().getX(), getCenter().getY() - line.getStart().y, line.getEnd().x + getCenter().getX(), getCenter().getY() - line.getEnd().y);
+        }
     }
 
     private void drawPoints(Graphics g) {
