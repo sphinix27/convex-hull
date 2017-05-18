@@ -154,4 +154,20 @@ public class PointSetTest
         
         assertEquals(4, solution.size());
     }
+
+    @Test
+    public void pointSetWith1000RandomPoints()
+    {
+        PointSet pointSet = new PointSet();
+        int counter = 0;
+        while(counter < 300)
+        {
+            pointSet.add(Point.generateRandom(250,400));
+            if(pointSet.size() == counter + 1)
+                counter++;
+        }
+
+        assertEquals(300, pointSet.size());
+        assertTrue(pointSet.solve().size() > 0);
+    }
 }

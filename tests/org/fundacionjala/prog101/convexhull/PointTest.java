@@ -81,4 +81,24 @@ public class PointTest
         
         assertFalse(point.equals(message));
     }
+
+    @Test
+    public void canGenerateRandomPointBetweenSize()
+    {
+        Point point = Point.generateRandom(250,400);
+
+        assertTrue(-125 <= point.getX() );
+        assertTrue(125 >= point.getX() );
+        assertTrue(-200 <= point.getY() );
+        assertTrue(200 >= point.getX() );
+    }
+
+    @Test
+    public void generatedRandomNumbersAreNotEqual()
+    {
+        Point pointOne = Point.generateRandom(250,400);
+        Point pointTwo = Point.generateRandom(250,400);
+
+        assertFalse(pointOne.equals(pointTwo));
+    }
 }

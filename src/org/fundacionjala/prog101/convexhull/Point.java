@@ -49,4 +49,10 @@ public class Point
     {
         return x + 31 * y;
     }
+
+    public static Point generateRandom(int xCoordinate, int yCoordinate) {
+        int xValue = (int) (Math.random() * xCoordinate - xCoordinate/2);
+        int yValue = (int) (Math.random() * yCoordinate - yCoordinate/2);
+        return new Point(xValue, yValue);
+    }
 }
